@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercizio Rane</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .rana {
+            position: relative;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        
+        .rana-grande {
+            width: 300px;
+            height: 150px;
+        }
+        
+        .rana-piccola {
+            width: 150px;
+            height: 80px;
+        }
+        
+        .rana-arancione {
+            background-color: #ff6633;
+        }
+        
+        .rana-verde {
+            background-color: #66cc66;
+        }
+        
+        .occhio {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .occhio-sinistro {
+            top: 20px;
+            left: 20px;
+        }
+        
+        .occhio-destro {
+            top: 20px;
+            right: 20px;
+        }
+        
+        .pupilla {
+            width: 15px;
+            height: 15px;
+            background-color: #f90000;
+            border-radius: 50%;
+        }
+        
+        .rana:hover .pupilla {
+            background-color: rgb(0, 0, 0);
+        }
+        
+        .bocca {
+            position: absolute;
+            top: 50%;
+            left: 40%;
+            width: 20%;
+            height: 2px;
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Esercizio Rane</h1>
+    
+    <div class="container">
+        <!-- Rana grande arancione -->
+        <div class="rana rana-grande rana-arancione">
+            <div class="occhio occhio-sinistro"><div class="pupilla"></div></div>
+            <div class="occhio occhio-destro"><div class="pupilla"></div></div>
+            <div class="bocca"></div>
+        </div>
+        
+        <!-- Rana piccola arancione -->
+        <div class="rana rana-piccola rana-arancione">
+            <div class="occhio occhio-sinistro"><div class="pupilla"></div></div>
+            <div class="occhio occhio-destro"><div class="pupilla"></div></div>
+            <div class="bocca"></div>
+        </div>
+        
+        <!-- Rana grande verde -->
+        <div class="rana rana-grande rana-verde">
+            <div class="occhio occhio-sinistro"><div class="pupilla"></div></div>
+            <div class="occhio occhio-destro"><div class="pupilla"></div></div>
+            <div class="bocca"></div>
+        </div>
+        
+        <!-- Rana piccola verde -->
+        <div class="rana rana-piccola rana-verde">
+            <div class="occhio occhio-sinistro"><div class="pupilla"></div></div>
+            <div class="occhio occhio-destro"><div class="pupilla"></div></div>
+            <div class="bocca"></div>
+        </div>
+        
+        <!-- Rana piccola verde con occhi neri -->
+        <div class="rana rana-piccola rana-verde">
+            <div class="occhio occhio-sinistro"><div class="pupilla" style="background-color: black;"></div></div>
+            <div class="occhio occhio-destro"><div class="pupilla" style="background-color: black;"></div></div>
+            <div class="bocca"></div>
+        </div>
+        
+        <!-- Rana piccola arancione con occhi neri -->
+        <div class="rana rana-piccola rana-arancione">
+            <div class="occhio occhio-sinistro"><div class="pupilla" style="background-color: black;"></div></div>
+            <div class="occhio occhio-destro"><div class="pupilla" style="background-color: black;"></div></div>
+            <div class="bocca"></div>
+        </div>
+    </div>
+</body>
+</html>
