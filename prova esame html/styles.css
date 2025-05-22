@@ -1,0 +1,136 @@
+/* Mobile-first: stili base (mobile) */
+
+/* Tablet: da 768px */
+@media (min-width: 768px) {
+  /* layout per tablet */
+}
+
+/* Desktop/Web: da 1024px */
+@media (min-width: 1024px) {
+  /* layout per desktop */
+}
+
+/* CSS: stile della singola card */
+.card {
+  display: flex;
+  background: #e6eaff;           /* sfondo chiaro */
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  width: 280px;
+  font-family: sans-serif;
+}
+
+/* Contenuto principale */
+.card-content {
+  padding: 1rem;
+  flex: 1;
+}
+
+/* Header anno + durata */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #333;
+}
+.card-header hr {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 0.5rem 0;
+}
+
+/* Titolo e regista */
+.title {
+  margin: 0.25rem 0;
+  color: #0066cc;
+  font-size: 1.1rem;
+}
+.director {
+  margin-bottom: 0.75rem;
+  color: #000;
+  font-size: 0.95rem;
+}
+
+/* Wrapper poster e badge */
+.poster-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.poster {
+  width: 100%;
+  border-radius: 4px;
+  display: block;
+}
+/* Badge "Novità" */
+.badge.new {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #ffb400;
+  color: #000;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+/* Badge genere */
+.badge.genre {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid #b30000;
+  color: #b30000;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+/* Testo cast */
+.cast {
+  font-size: 0.85rem;
+  color: #000;
+  margin-top: 0.75rem;
+  line-height: 1.2;
+}
+
+/* Colonna azioni a destra */
+.card-actions {
+  background: #0052cc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  justify-content: center;
+}
+.btn {
+  background: white;
+  border: none;
+  margin: 0.25rem 0;
+  padding: 0.5rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.btn.edit {
+  border: 2px solid #ffa500;
+}
+.btn.delete {
+  border: 2px solid #8b0000;
+}
+
+/* ==== Responsive ==== */
+/* Tablet */
+@media (min-width: 768px) {
+  .list-item { flex-direction: row; align-items: center; }
+  .list-item img { width: 150px; flex-shrink: 0; }
+  .item-info { flex: 1; padding: 0 1rem; }
+}
+
+/* Desktop/Web */
+@media (min-width: 1024px) {
+  main { max-width: 1200px; margin: 0 auto; }
+  .filters { display: flex; gap: 1rem; }
+}
