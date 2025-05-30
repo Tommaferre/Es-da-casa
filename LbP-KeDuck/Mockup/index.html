@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rifugio di Leo - Gestionale</title>
+    <!-- Aggiungo Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -305,37 +307,36 @@
             <span>🐾</span>
             <span>Rifugio di Leo</span>
         </div>
-        <nav>
-            <ul class="nav-menu">
-                <li><a href="#" class="active">Dashboard</a></li>
-                <li><a href="#">Profilo</a></li>
-                <li><a href="#">Impostazioni</a></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-        </nav>
+        <div class="dropdown">
+            <i class="fas fa-user-circle profile-icon"></i>
+            <div class="dropdown-content">
+                <a href="#"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
     </header>
 
     <div class="main-container">
         <!-- Sidebar -->
         <aside class="sidebar">
             <a href="#" class="sidebar-item active" onclick="showSection('dashboard')">
-                <span class="sidebar-icon">📊</span>
+                <span class="sidebar-icon"><i class="fas fa-chart-bar"></i></span>
                 <span>Dashboard</span>
             </a>
             <a href="#" class="sidebar-item" onclick="showSection('animals')">
-                <span class="sidebar-icon">🐕</span>
+                <span class="sidebar-icon"><i class="fas fa-paw"></i></span>
                 <span>Animali</span>
             </a>
             <a href="#" class="sidebar-item" onclick="showSection('adoptions')">
-                <span class="sidebar-icon">❤️</span>
+                <span class="sidebar-icon"><i class="fas fa-heart"></i></span>
                 <span>Adozioni</span>
             </a>
             <a href="#" class="sidebar-item" onclick="showSection('visits')">
-                <span class="sidebar-icon">🩺</span>
+                <span class="sidebar-icon"><i class="fas fa-stethoscope"></i></span>
                 <span>Visite Veterinarie</span>
             </a>
             <a href="#" class="sidebar-item" onclick="showSection('donations')">
-                <span class="sidebar-icon">💝</span>
+                <span class="sidebar-icon"><i class="fas fa-gift"></i></span>
                 <span>Donazioni</span>
             </a>
         </aside>
@@ -345,6 +346,12 @@
             <!-- Dashboard Section -->
             <div id="dashboard" class="section">
                 <h1 class="page-title">Dashboard</h1>
+                
+                <!-- Aggiungo barra di ricerca -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Cerca in dashboard...">
+                </div>
                 
                 <!-- Stats Cards -->
                 <div class="stats-grid">
@@ -405,13 +412,29 @@
             <div id="animals" class="section hidden">
                 <h1 class="page-title">Gestione Animali</h1>
                 
+                <!-- Aggiungo barra di ricerca -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Cerca animale per nome, specie, età...">
+                </div>
+                
                 <div class="content-section">
                     <div class="section-header">
                         <h2 class="section-title">Lista Animali</h2>
-                        <a href="#" class="btn btn-primary">+ Aggiungi Animale</a>
+                        <div style="display: flex; gap: 1rem;">
+                            <a href="#" class="btn btn-primary"><i class="fas fa-file-medical"></i> Cartelle Cliniche</a>
+                            <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Aggiungi Animale</a>
+                        </div>
                     </div>
                     
-                    <div class="table-container">
+                    <!-- Aggiungo pulsanti per cambiare visualizzazione -->
+                    <div class="view-options">
+                        <button class="view-btn active" onclick="changeView('table')"><i class="fas fa-table"></i> Tabella</button>
+                        <button class="view-btn" onclick="changeView('cards')"><i class="fas fa-th"></i> Cards</button>
+                    </div>
+                    
+                    <!-- Vista tabella -->
+                    <div id="table-view" class="table-container">
                         <table>
                             <thead>
                                 <tr>
@@ -451,6 +474,34 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                    <!-- Vista cards (inizialmente nascosta) -->
+                    <div id="cards-view" class="animals-grid" style="display: none;">
+                        <div class="animal-card">
+                            <div class="animal-image"><i class="fas fa-dog"></i></div>
+                            <div class="animal-info">
+                                <div class="animal-name">Max</div>
+                                <div class="animal-details">Golden Retriever • 3 anni • Maschio</div>
+                                <span class="animal-status status-available">Disponibile</span>
+                            </div>
+                        </div>
+                        <div class="animal-card">
+                            <div class="animal-image"><i class="fas fa-cat"></i></div>
+                            <div class="animal-info">
+                                <div class="animal-name">Luna</div>
+                                <div class="animal-details">Gatto Europeo • 2 anni • Femmina</div>
+                                <span class="animal-status status-available">Disponibile</span>
+                            </div>
+                        </div>
+                        <div class="animal-card">
+                            <div class="animal-image"><i class="fas fa-dog"></i></div>
+                            <div class="animal-info">
+                                <div class="animal-name">Buddy</div>
+                                <div class="animal-details">Labrador Mix • 5 anni • Maschio</div>
+                                <span class="animal-status status-adopted">Adottato</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -458,16 +509,23 @@
             <div id="adoptions" class="section hidden">
                 <h1 class="page-title">Gestione Adozioni</h1>
                 
+                <!-- Aggiungo barra di ricerca -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Cerca adozione per richiedente, animale, data...">
+                </div>
+                
                 <div class="nav-tabs">
-                    <button class="nav-tab active">Richieste Pendenti</button>
-                    <button class="nav-tab">Adozioni Completate</button>
-                    <button class="nav-tab">Contratti</button>
+                    <button class="nav-tab active" onclick="showAdoptionTab('pending')">Richieste Pendenti</button>
+                    <button class="nav-tab" onclick="showAdoptionTab('completed')">Adozioni Completate</button>
+                    <button class="nav-tab" onclick="showAdoptionTab('forms')">Moduli Adozione</button>
                 </div>
 
-                <div class="content-section">
+                <!-- Richieste pendenti -->
+                <div id="pending-tab" class="adoption-tab content-section">
                     <div class="section-header">
                         <h2 class="section-title">Richieste di Adozione</h2>
-                        <a href="#" class="btn btn-primary">+ Nuova Richiesta</a>
+                        <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Nuova Richiesta</a>
                     </div>
                     
                     <div class="table-container">
@@ -506,10 +564,22 @@
             <div id="visits" class="section hidden">
                 <h1 class="page-title">Visite Veterinarie</h1>
                 
-                <div class="content-section">
+                <!-- Aggiungo barra di ricerca -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Cerca visita per animale, veterinario, tipo...">
+                </div>
+                
+                <div class="nav-tabs">
+                    <button class="nav-tab active" onclick="showVisitTab('upcoming')">Prossime Visite</button>
+                    <button class="nav-tab" onclick="showVisitTab('completed')">Visite Completate</button>
+                </div>
+                
+                <!-- Prossime visite -->
+                <div id="upcoming-tab" class="visit-tab content-section">
                     <div class="section-header">
                         <h2 class="section-title">Prossime Visite</h2>
-                        <a href="#" class="btn btn-primary">+ Prenota Visita</a>
+                        <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Prenota Visita</a>
                     </div>
                     
                     <div class="table-container">
@@ -542,11 +612,57 @@
                         </table>
                     </div>
                 </div>
+                
+                <!-- Visite completate (inizialmente nascosto) -->
+                <div id="completed-tab" class="visit-tab content-section" style="display: none;">
+                    <div class="section-header">
+                        <h2 class="section-title">Visite Completate</h2>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Animale</th>
+                                    <th>Veterinario</th>
+                                    <th>Tipo Visita</th>
+                                    <th>Data</th>
+                                    <th>Esito</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Buddy</strong></td>
+                                    <td>Dr. Veterinari</td>
+                                    <td>Controllo post-adozione</td>
+                                    <td>20/05/2025</td>
+                                    <td>Positivo</td>
+                                    <td><a href="#" class="btn btn-primary">Referto</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Max</strong></td>
+                                    <td>Dr. Veterinari</td>
+                                    <td>Vaccinazione</td>
+                                    <td>10/05/2025</td>
+                                    <td>Completata</td>
+                                    <td><a href="#" class="btn btn-primary">Referto</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
 
             <!-- Donations Section -->
             <div id="donations" class="section hidden">
                 <h1 class="page-title">Gestione Donazioni</h1>
+                
+                <!-- Aggiungo barra di ricerca -->
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Cerca donazione per donatore, importo, data...">
+                </div>
                 
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -629,6 +745,63 @@
             
             // Add active class to clicked sidebar item
             event.target.closest('.sidebar-item').classList.add('active');
+        }
+    
+        // Funzione per cambiare visualizzazione nella sezione animali
+        function changeView(viewType) {
+            const tableView = document.getElementById('table-view');
+            const cardsView = document.getElementById('cards-view');
+            const viewButtons = document.querySelectorAll('.view-btn');
+            
+            viewButtons.forEach(btn => btn.classList.remove('active'));
+            
+            if (viewType === 'table') {
+                tableView.style.display = 'block';
+                cardsView.style.display = 'none';
+                document.querySelector('.view-btn:nth-child(1)').classList.add('active');
+            } else {
+                tableView.style.display = 'none';
+                cardsView.style.display = 'grid';
+                document.querySelector('.view-btn:nth-child(2)').classList.add('active');
+            }
+        }
+    
+        // Funzione per gestire i tab nella sezione adozioni
+        function showAdoptionTab(tabId) {
+            const tabs = document.querySelectorAll('.adoption-tab');
+            const tabButtons = document.querySelectorAll('#adoptions .nav-tab');
+            
+            tabs.forEach(tab => tab.style.display = 'none');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(`${tabId}-tab`).style.display = 'block';
+            
+            // Trova il pulsante corrispondente e attivalo
+            if (tabId === 'pending') {
+                tabButtons[0].classList.add('active');
+            } else if (tabId === 'completed') {
+                tabButtons[1].classList.add('active');
+            } else if (tabId === 'forms') {
+                tabButtons[2].classList.add('active');
+            }
+        }
+    
+        // Funzione per gestire i tab nella sezione visite
+        function showVisitTab(tabId) {
+            const tabs = document.querySelectorAll('.visit-tab');
+            const tabButtons = document.querySelectorAll('#visits .nav-tab');
+            
+            tabs.forEach(tab => tab.style.display = 'none');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(`${tabId}-tab`).style.display = 'block';
+            
+            // Trova il pulsante corrispondente e attivalo
+            if (tabId === 'upcoming') {
+                tabButtons[0].classList.add('active');
+            } else if (tabId === 'completed') {
+                tabButtons[1].classList.add('active');
+            }
         }
     </script>
 </body>
