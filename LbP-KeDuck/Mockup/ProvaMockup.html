@@ -599,6 +599,10 @@
                 <i class="fas fa-heart sidebar-icon"></i>
                 <span>Adozioni</span>
             </a>
+            <a href="#" class="sidebar-item" onclick="showSection('medical-records')">
+                <i class="fas fa-file-medical sidebar-icon"></i>
+                <span>Cartelle Cliniche</span>
+            </a>
             <a href="#" class="sidebar-item" onclick="showSection('visits')">
                 <i class="fas fa-stethoscope sidebar-icon"></i>
                 <span>Visite Veterinarie</span>
@@ -1106,7 +1110,482 @@
                     </div>
                 </div>
             </div>
+            <!-- Medical Records Section -->
+            <div id="medical-records" class="section hidden">
+                <h1 class="page-title">Cartelle Cliniche</h1>
+                
+                <div class="section-controls">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Cerca cartelle..." id="medicalSearch" onkeyup="searchMedicalRecords()">
+                    </div>
+                    <div class="controls-group">
+                        <select class="form-select" style="padding: 0.5rem; border: 1px solid #dee2e6; border-radius: 5px;">
+                            <option value="">Tutti gli animali</option>
+                            <option value="cane">Solo Cani</option>
+                            <option value="gatto">Solo Gatti</option>
+                        </select>
+                        <button class="btn btn-outline" onclick="window.print()">
+                            <i class="fas fa-print"></i> Stampa
+                        </button>
+                        <button class="btn btn-primary" onclick="showNewMedicalRecord()">
+                            <i class="fas fa-plus"></i> Nuova Cartella
+                        </button>
+                    </div>
+                </div>
 
+                <div class="nav-tabs">
+                    <button class="nav-tab active" onclick="showMedicalTab('overview')">Panoramica</button>
+                    <button class="nav-tab" onclick="showMedicalTab('records')">Cartelle Cliniche</button>
+                    <button class="nav-tab" onclick="showMedicalTab('vaccinations')">Vaccinazioni</button>
+                    <button class="nav-tab" onclick="showMedicalTab('treatments')">Trattamenti</button>
+                </div>
+
+                <!-- Overview Tab -->
+                <div id="medicalOverview" class="content-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Panoramica Sanitaria</h2>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">47</div>
+                            <div class="stat-label">Cartelle attive</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">8</div>
+                            <div class="stat-label">Visite questa settimana</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">15</div>
+                            <div class="stat-label">Vaccini in scadenza</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Trattamenti attivi</div>
+                        </div>
+                    </div>
+
+                    <!-- Alerts Section -->
+                    <div class="content-section" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+                        <div class="section-header">
+                            <h3 class="section-title" style="color: #856404;">
+                                <i class="fas fa-exclamation-triangle"></i> Attenzioni Mediche
+                            </h3>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Animale</th>
+                                        <th>Tipo Allerta</th>
+                                        <th>Scadenza</th>
+                                        <th>Priorità</th>
+                                        <th>Azioni</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Max</strong></td>
+                                        <td>Richiamo vaccinale</td>
+                                        <td>05/06/2025</td>
+                                        <td><span class="animal-status" style="background: #f8d7da; color: #721c24;">Alta</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-icon" title="Prenota Visita">
+                                                <i class="fas fa-calendar-plus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Luna</strong></td>
+                                        <td>Controllo post-operatorio</td>
+                                        <td>08/06/2025</td>
+                                        <td><span class="animal-status" style="background: #fff3cd; color: #856404;">Media</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-icon" title="Prenota Visita">
+                                                <i class="fas fa-calendar-plus"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medical Records Tab -->
+                <div id="medicalRecords" class="content-section hidden">
+                    <div class="section-header">
+                        <h2 class="section-title">Cartelle Cliniche</h2>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Animale</th>
+                                    <th>Specie</th>
+                                    <th>Età</th>
+                                    <th>Ultima Visita</th>
+                                    <th>Stato Salute</th>
+                                    <th>Note</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody id="medicalRecordsTableBody">
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <i class="fas fa-dog" style="color: #ff8c42;"></i>
+                                            <strong>Max</strong>
+                                        </div>
+                                    </td>
+                                    <td>Cane - Golden Retriever</td>
+                                    <td>3 anni</td>
+                                    <td>25/05/2025</td>
+                                    <td><span class="animal-status status-available">Buono</span></td>
+                                    <td>Vaccini aggiornati</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-icon" title="Visualizza Cartella" onclick="showMedicalDetail('max')">
+                                            <i class="fas fa-folder-open"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Nuova Visita">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <i class="fas fa-cat" style="color: #ff8c42;"></i>
+                                            <strong>Luna</strong>
+                                        </div>
+                                    </td>
+                                    <td>Gatto - Europeo</td>
+                                    <td>2 anni</td>
+                                    <td>20/05/2025</td>
+                                    <td><span class="animal-status" style="background: #fff3cd; color: #856404;">Controllo</span></td>
+                                    <td>Post sterilizzazione</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-icon" title="Visualizza Cartella" onclick="showMedicalDetail('luna')">
+                                            <i class="fas fa-folder-open"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Nuova Visita">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <i class="fas fa-dog" style="color: #ff8c42;"></i>
+                                            <strong>Buddy</strong>
+                                        </div>
+                                    </td>
+                                    <td>Cane - Labrador Mix</td>
+                                    <td>5 anni</td>
+                                    <td>15/05/2025</td>
+                                    <td><span class="animal-status status-adopted">Adottato</span></td>
+                                    <td>Controllo pre-adozione completato</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-icon" title="Visualizza Cartella" onclick="showMedicalDetail('buddy')">
+                                            <i class="fas fa-folder-open"></i>
+                                        </button>
+                                        <button class="btn btn-secondary btn-icon" title="Nuova Visita">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Vaccinations Tab -->
+                <div id="medicalVaccinations" class="content-section hidden">
+                    <div class="section-header">
+                        <h2 class="section-title">Registro Vaccinazioni</h2>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-syringe"></i> Registra Vaccino
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Animale</th>
+                                    <th>Vaccino</th>
+                                    <th>Data Somministrazione</th>
+                                    <th>Prossimo Richiamo</th>
+                                    <th>Veterinario</th>
+                                    <th>Lotto</th>
+                                    <th>Stato</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Max</strong></td>
+                                    <td>Tetravalente (DHPP)</td>
+                                    <td>25/05/2024</td>
+                                    <td><span style="color: #dc3545; font-weight: bold;">25/05/2025</span></td>
+                                    <td>Dr. Veterinari</td>
+                                    <td>VAC001234</td>
+                                    <td><span class="animal-status" style="background: #f8d7da; color: #721c24;">Scaduto</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Luna</strong></td>
+                                    <td>Trivalente Felino</td>
+                                    <td>15/04/2025</td>
+                                    <td>15/04/2026</td>
+                                    <td>Dr. Felini</td>
+                                    <td>FEL002456</td>
+                                    <td><span class="animal-status status-available">Attivo</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Max</strong></td>
+                                    <td>Antirabbica</td>
+                                    <td>10/03/2025</td>
+                                    <td>10/03/2026</td>
+                                    <td>Dr. Veterinari</td>
+                                    <td>RAB003789</td>
+                                    <td><span class="animal-status status-available">Attivo</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Treatments Tab -->
+                <div id="medicalTreatments" class="content-section hidden">
+                    <div class="section-header">
+                        <h2 class="section-title">Trattamenti Medici</h2>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-pills"></i> Nuovo Trattamento
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Animale</th>
+                                    <th>Trattamento</th>
+                                    <th>Farmaco/Terapia</th>
+                                    <th>Data Inizio</th>
+                                    <th>Durata</th>
+                                    <th>Frequenza</th>
+                                    <th>Stato</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Luna</strong></td>
+                                    <td>Antibiotico post-operatorio</td>
+                                    <td>Amoxicillina 250mg</td>
+                                    <td>22/05/2025</td>
+                                    <td>7 giorni</td>
+                                    <td>2 volte/giorno</td>
+                                    <td><span class="animal-status status-available">In corso</span></td>
+                                    <td>
+                                        <button class="btn btn-primary btn-icon" title="Dettagli">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Rocky</strong></td>
+                                    <td>Antiparassitario</td>
+                                    <td>Frontline Spot-On</td>
+                                    <td>15/05/2025</td>
+                                    <td>1 applicazione</td>
+                                    <td>Mensile</td>
+                                    <td><span class="animal-status status-available">Completato</span></td>
+                                    <td>
+                                        <button class="btn btn-primary btn-icon" title="Dettagli">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Milo</strong></td>
+                                    <td>Terapia dermatologica</td>
+                                    <td>Shampoo medicato</td>
+                                    <td>10/05/2025</td>
+                                    <td>14 giorni</td>
+                                    <td>3 volte/settimana</td>
+                                    <td><span class="animal-status status-available">In corso</span></td>
+                                    <td>
+                                        <button class="btn btn-primary btn-icon" title="Dettagli">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Medical Detail Modal -->
+                <div id="medicalDetailModal" class="section hidden">
+                    <div class="adoption-form" style="max-width: 1000px;">
+                        <div class="form-header">
+                            <h1><i class="fas fa-file-medical"></i> Cartella Clinica - Max</h1>
+                            <p style="color: #6c757d;">Golden Retriever • Maschio • 3 anni • Microchip: 380260123456789</p>
+                            <div style="text-align: right; margin-top: 1rem;">
+                                <button class="btn btn-secondary" onclick="hideMedicalDetail()">
+                                    <i class="fas fa-arrow-left"></i> Torna Indietro
+                                </button>
+                                <button class="btn btn-primary" onclick="window.print()">
+                                    <i class="fas fa-print"></i> Stampa Cartella
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-info-circle"></i> Informazioni Generali</h3>
+                            <div class="form-row">
+                                <div class="form-label">Data di nascita stimata:</div>
+                                <div class="form-value">15/03/2022</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label">Data arrivo rifugio:</div>
+                                <div class="form-value">15/05/2025</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label">Peso attuale:</div>
+                                <div class="form-value">28.5 kg</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label">Sterilizzato:</div>
+                                <div class="form-value">Sì (02/04/2024)</div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-label">Allergie note:</div>
+                                <div class="form-value">Nessuna</div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-stethoscope"></i> Storico Visite</h3>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Tipo Visita</th>
+                                            <th>Veterinario</th>
+                                            <th>Diagnosi/Note</th>
+                                            <th>Terapia</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>25/05/2025</td>
+                                            <td>Visita d'ingresso</td>
+                                            <td>Dr. Veterinari</td>
+                                            <td>Buone condizioni generali. Lieve perdita di peso.</td>
+                                            <td>Dieta ipercalorica</td>
+                                        </tr>
+                                        <tr>
+                                            <td>15/05/2025</td>
+                                            <td>Prima visita</td>
+                                            <td>Dr. Veterinari</td>
+                                            <td>Animale in discrete condizioni. Necessari controlli approfonditi.</td>
+                                            <td>Vermifugo, antiparassitario</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-syringe"></i> Vaccinazioni</h3>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Vaccino</th>
+                                            <th>Data</th>
+                                            <th>Scadenza</th>
+                                            <th>Lotto</th>
+                                            <th>Veterinario</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background: #f8d7da;">
+                                            <td>Tetravalente (DHPP)</td>
+                                            <td>25/05/2024</td>
+                                            <td><strong style="color: #dc3545;">25/05/2025 - SCADUTO</strong></td>
+                                            <td>VAC001234</td>
+                                            <td>Dr. Veterinari</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Antirabbica</td>
+                                            <td>10/03/2025</td>
+                                            <td>10/03/2026</td>
+                                            <td>RAB003789</td>
+                                            <td>Dr. Veterinari</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-pills"></i> Trattamenti Farmacologici</h3>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Farmaco</th>
+                                            <th>Dosaggio</th>
+                                            <th>Periodo</th>
+                                            <th>Motivo</th>
+                                            <th>Note</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Vermifugo (Drontal)</td>
+                                            <td>1 compressa</td>
+                                            <td>16/05/2025</td>
+                                            <td>Profilassi</td>
+                                            <td>Somministrazione unica</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Frontline Spot-On</td>
+                                            <td>1 pipetta</td>
+                                            <td>16/05/2025</td>
+                                            <td>Antiparassitario</td>
+                                            <td>Ripetere mensilmente</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-notes-medical"></i> Note Comportamentali</h3>
+                            <div style="background: #f8f9fa; padding: 1rem; border-radius: 5px; color: #343a40;">
+                                <p><strong>Temperamento:</strong> Docile e socievole. Molto affettuoso con le persone.</p>
+                                <p><strong>Socializzazione:</strong> Buona con altri cani, necessita di graduale introduzione con i gatti.</p>
+                                <p><strong>Addestramento:</strong> Conosce i comandi di base. Risponde bene al richiamo.</p>
+                                <p><strong>Particolarità:</strong> Tende ad essere protettivo con il cibo. Necessita di spazi ampi per l'esercizio.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-exclamation-triangle"></i> Prossimi Appuntamenti</h3>
+                            <div style="background: #fff3cd; padding: 1rem; border-radius: 5px; border-left: 4px solid #ffc107;">
+                                <p><strong>Vaccino Tetravalente:</strong> Da programmare entro il 05/06/2025</p>
+                                <p><strong>Controllo peso:</strong> Visita di controllo programmata per il 10/06/2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Donations Section -->
             <div id="donations" class="section hidden">
                 <h1 class="page-title">Gestione Donazioni</h1>
@@ -1473,6 +1952,54 @@
                 const text = row.textContent.toLowerCase();
                 row.style.display = text.includes(searchTerm) ? '' : 'none';
             });
+        }
+        function showMedicalTab(tabType) {
+            const tabs = document.querySelectorAll('#medical-records .nav-tab');
+            const overview = document.getElementById('medicalOverview');
+            const records = document.getElementById('medicalRecords');
+            const vaccinations = document.getElementById('medicalVaccinations');
+            const treatments = document.getElementById('medicalTreatments');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            [overview, records, vaccinations, treatments].forEach(section => section.classList.add('hidden'));
+            
+            if (tabType === 'overview') {
+                tabs[0].classList.add('active');
+                overview.classList.remove('hidden');
+            } else if (tabType === 'records') {
+                tabs[1].classList.add('active');
+                records.classList.remove('hidden');
+            } else if (tabType === 'vaccinations') {
+                tabs[2].classList.add('active');
+                vaccinations.classList.remove('hidden');
+            } else if (tabType === 'treatments') {
+                tabs[3].classList.add('active');
+                treatments.classList.remove('hidden');
+            }
+        }
+
+        function searchMedicalRecords() {
+            const searchTerm = document.getElementById('medicalSearch').value.toLowerCase();
+            const tableRows = document.querySelectorAll('#medicalRecordsTableBody tr');
+            
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
+        }
+
+        function showMedicalDetail(animalId) {
+            document.getElementById('medical-records').classList.add('hidden');
+            document.getElementById('medicalDetailModal').classList.remove('hidden');
+        }
+
+        function hideMedicalDetail() {
+            document.getElementById('medicalDetailModal').classList.add('hidden');
+            document.getElementById('medical-records').classList.remove('hidden');
+        }
+
+        function showNewMedicalRecord() {
+            alert('Funzione per creare nuova cartella clinica - Da implementare');
         }
 
         // Initialize the page
