@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PetFlix - Gestione Adottanti</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-paw"></i> Petflix</h1>
+                <p>Sistema di Gestione Rifugio</p>
+            </div>
+            <div class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="animali.html" class="nav-item">
+                    <i class="fas fa-dog"></i> Animali
+                </a>
+                <a href="adottanti.html" class="nav-item">
+                    <i class="fas fa-users"></i> Adottanti
+                </a>
+                <a href="adozioni.html" class="nav-item active">
+                    <i class="fas fa-heart"></i> Adozioni
+                </a>
+                <a href="box.html" class="nav-item">
+                    <i class="fas fa-home"></i> Box
+                </a>
+                <a href="cartelle-cliniche.html" class="nav-item">
+                    <i class="fas fa-file-medical"></i> Cartelle Cliniche
+                </a>
+                <a href="donatori.html" class="nav-item">
+                    <i class="fas fa-hand-holding-heart"></i> Donatori
+                </a>
+                <a href="donazioni.html" class="nav-item">
+                    <i class="fas fa-donate"></i> Donazioni
+                </a>
+                <a href="veterinari.html" class="nav-item">
+                    <i class="fas fa-user-md"></i> Veterinari
+                </a>
+                <a href="visite-mediche.html" class="nav-item">
+                    <i class="fas fa-stethoscope"></i> Visite Mediche
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <div class="top-bar">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2>Gestione Adottanti</h2>
+            </div>
+
+            <div class="content-area">
+                <div class="page-header">
+                    <h2 class="page-title">Adottanti</h2>
+                    <div class="action-buttons">
+                        <button class="btn btn-success" onclick="openAddModal()">Aggiungi Adottante</button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <input
+                        type="text"
+                        class="search-input"
+                        id="searchInput"
+                        placeholder="Cerca adottanti..."
+                        onkeyup="filterTable('adottantiTable', 'searchInput')"
+                    />
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="adottantiTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Cognome</th>
+                                <th>Telefono</th>
+                                <th>Email</th>
+                                <th>Indirizzo</th>
+                                <th>Idoneità</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adottantiTableBody">
+                            <!-- Data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal per aggiungere/modificare adottante -->
+    <div id="adottanteModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle">Aggiungi Adottante</h3>
+            <form id="adottanteForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name="nome" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="cognome">Cognome:</label>
+                        <input type="text" id="cognome" name="cognome" class="form-control" required />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telefono">Telefono:</label>
+                        <input type="tel" id="telefono" name="telefono" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="indirizzo">Indirizzo:</label>
+                    <textarea id="indirizzo" name="indirizzo" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="idoneo">Idoneità:</label>
+                    <select id="idoneo" name="idoneo" class="form-control" required>
+                        <!--<option value="">Seleziona idoneità</option>-->
+                        <option value="idoneo">Idoneo</option>
+                        <option value="non idoneo">Non Idoneo</option>
+                    </select>
+                </div>
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-success">Salva</button>
+                    <button type="button" class="btn btn-danger" onclick="closeModal()">Annulla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/adottanti.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetFlix - Dashboard Rifugio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-paw"></i> Petflix</h1>
+                <p>Sistema di Gestione Rifugio</p>
+            </div>
+            <div class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="animali.html" class="nav-item">
+                    <i class="fas fa-dog"></i> Animali
+                </a>
+                <a href="adottanti.html" class="nav-item">
+                    <i class="fas fa-users"></i> Adottanti
+                </a>
+                <a href="adozioni.html" class="nav-item active">
+                    <i class="fas fa-heart"></i> Adozioni
+                </a>
+                <a href="box.html" class="nav-item">
+                    <i class="fas fa-home"></i> Box
+                </a>
+                <a href="cartelle-cliniche.html" class="nav-item">
+                    <i class="fas fa-file-medical"></i> Cartelle Cliniche
+                </a>
+                <a href="donatori.html" class="nav-item">
+                    <i class="fas fa-hand-holding-heart"></i> Donatori
+                </a>
+                <a href="donazioni.html" class="nav-item">
+                    <i class="fas fa-donate"></i> Donazioni
+                </a>
+                <a href="veterinari.html" class="nav-item">
+                    <i class="fas fa-user-md"></i> Veterinari
+                </a>
+                <a href="visite-mediche.html" class="nav-item">
+                    <i class="fas fa-stethoscope"></i> Visite Mediche
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <div class="top-bar">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2>Dashboard Principale</h2>
+            </div>
+
+            <div class="content-area">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Animali Totali</h3>
+                        <span class="stat-number" id="total-animals">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Adozioni Completate</h3>
+                        <span class="stat-number" id="completed-adoptions">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Box Occupati</h3>
+                        <span class="stat-number" id="occupied-boxes">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Donazioni Ricevute</h3>
+                        <span class="stat-number" id="total-donations">€0</span>
+                    </div>
+                </div>
+
+                <div class="categories-grid">
+                    <div class="category-card" onclick="navigateTo('animali.html')">
+                        <div class="category-icon">🐕</div>
+                        <h3>Animali</h3>
+                        <p>Gestisci gli animali del rifugio</p>
+                    </div>
+                    
+                    <div class="category-card" onclick="navigateTo('adottanti.html')">
+                        <div class="category-icon">👥</div>
+                        <h3>Adottanti</h3>
+                        <p>Gestisci i potenziali adottanti</p>
+                    </div>
+                    
+                    <div class="category-card" onclick="navigateTo('adozioni.html')">
+                        <div class="category-icon">❤️</div>
+                        <h3>Adozioni</h3>
+                        <p>Gestisci le pratiche di adozione</p>
+                    </div>
+                    
+                    <div class="category-card" onclick="navigateTo('box.html')">
+                        <div class="category-icon">🏠</div>
+                        <h3>Box</h3>
+                        <p>Gestisci i box del rifugio</p>
+                    </div>
+                    
+                    <div class="category-card" onclick="navigateTo('cartelle-cliniche.html')">
+                        <div class="category-icon">📋</div>
+                        <h3>Cartelle Cliniche</h3>
+                        <p>Gestisci le cartelle mediche</p>
+                    </div>
+                    
+                    <div class="category-card" onclick="navigateTo('donatori.html')">
+                        <div class="category-icon">🤝</div>
+                        <h3>Donatori</h3>
+                        <p>Gestisci i donatori</p>
+                    </div>
+                    
+                    <div class="category-card" onclick="navigateTo('donazioni.html')">
+                        <div class="category-icon">💰</div>
+                        <h3>Donazioni</h3>
+                        <p>Gestisci le donazioni ricevute</p>
+                    </div>
+                    
+                    <div class="category-card" onclick="navigateTo('veterinari.html')">
+                        <div class="category-icon">👨‍⚕️</div>
+                        <h3>Veterinari</h3>
+                        <p>Gestisci i veterinari</p>
+                    </div>
+                    
+                    <div class="category-card" onclick="navigateTo('visite-mediche.html')">
+                        <div class="category-icon">🩺</div>
+                        <h3>Visite Mediche</h3>
+                        <p>Gestisci le visite veterinarie</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

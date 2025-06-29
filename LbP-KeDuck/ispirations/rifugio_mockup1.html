@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawCare - Gestionale Rifugio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #555;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .tab {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .tab:hover:not(.active) {
+            background: white;
+            transform: translateY(-1px);
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .stat-card:nth-child(1) .stat-icon { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .stat-card:nth-child(2) .stat-icon { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .stat-card:nth-child(3) .stat-icon { background: linear-gradient(135deg, #fa709a, #fee140); }
+        .stat-card:nth-child(4) .stat-icon { background: linear-gradient(135deg, #a8edea, #fed6e3); }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .animals-list {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #eee;
+            border-radius: 15px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+        
+        .animal-card {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .animal-card:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .animal-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .animal-info {
+            flex: 1;
+        }
+        
+        .animal-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .animal-details {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .animal-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .status-available { background: #d4edda; color: #155724; }
+        .status-adopted { background: #cce7ff; color: #004085; }
+        .status-medical { background: #fff3cd; color: #856404; }
+        
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .quick-actions, .recent-activity {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            padding: 15px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        
+        .action-btn:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+        }
+        
+        .activity-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-text {
+            font-size: 14px;
+            color: #2c3e50;
+            margin-bottom: 3px;
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .animal-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">🐾</div>
+                <div class="logo-text">PawCare</div>
+            </div>
+            <div class="user-info">
+                <span>👨‍⚕️ Dr. Mario Rossi</span>
+                <span>|</span>
+                <span>📅 26 Maggio 2025</span>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav-tabs">
+            <button class="tab active">Dashboard</button>
+            <button class="tab">Animali</button>
+            <button class="tab">Adozioni</button>
+            <button class="tab">Veterinario</button>
+            <button class="tab">Volontari</button>
+            <button class="tab">Finanze</button>
+            <button class="tab">Report</button>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="left-panel">
+                <!-- Statistics -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🐕</div>
+                        <div class="stat-number">47</div>
+                        <div class="stat-label">Animali Totali</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-number">23</div>
+                        <div class="stat-label">Disponibili</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">❤️</div>
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Adottati Questo Mese</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏥</div>
+                        <div class="stat-number">9</div>
+                        <div class="stat-label">In Cura</div>
+                    </div>
+                </div>
+
+                <!-- Animals List -->
+                <div class="animals-list">
+                    <div class="section-header">
+                        <h2 class="section-title">Animali nel Rifugio</h2>
+                        <button class="btn-primary">+ Aggiungi Animale</button>
+                    </div>
+                    
+                    <input type="text" class="search-bar" placeholder="🔍 Cerca per nome, razza o chip...">
+                    
+                    <div class="animal-card">
+                        <div class="animal-photo">🐕</div>
+                        <div class="animal-info">
+                            <div class="animal-name">Luna</div>
+                            <div class="animal-details">
+                                Labrador Mix • Femmina • 3 anni<br>
+                                Chip: 380260123456789 • Arrivo: 15/03/2025
+                            </div>
+                        </div>
+                        <span class="animal-status status-available">Disponibile</span>
+                    </div>
+                    
+                    <div class="animal-card">
+                        <div class="animal-photo">🐱</div>
+                        <div class="animal-info">
+                            <div class="animal-name">Whiskers</div>
+                            <div class="animal-details">
+                                Gatto Europeo • Maschio • 2 anni<br>
+                                Chip: 380260987654321 • Arrivo: 22/04/2025
+                            </div>
+                        </div>
+                        <span class="animal-status status-medical">In Cura</span>
+                    </div>
+                    
+                    <div class="animal-card">
+                        <div class="animal-photo">🐕</div>
+                        <div class="animal-info">
+                            <div class="animal-name">Max</div>
+                            <div class="animal-details">
+                                Golden Retriever • Maschio • 5 anni<br>
+                                Chip: 380260555777999 • Arrivo: 10/01/2025
+                            </div>
+                        </div>
+                        <span class="animal-status status-adopted">Adottato</span>
+                    </div>
+                    
+                    <div class="animal-card">
+                        <div class="animal-photo">🐰</div>
+                        <div class="animal-info">
+                            <div class="animal-name">Bianca</div>
+                            <div class="animal-details">
+                                Coniglio Nano • Femmina • 1 anno<br>
+                                Chip: 380260111222333 • Arrivo: 05/05/2025
+                            </div>
+                        </div>
+                        <span class="animal-status status-available">Disponibile</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3 class="section-title">Azioni Rapide</h3>
+                    
+                    <button class="action-btn">
+                        <div class="action-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">➕</div>
+                        <div>
+                            <div style="font-weight: 600;">Nuovo Ingresso</div>
+                            <div style="font-size: 12px; color: #666;">Registra nuovo animale</div>
+                        </div>
+                    </button>
+                    
+                    <button class="action-btn">
+                        <div class="action-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">📋</div>
+                        <div>
+                            <div style="font-weight: 600;">Visita Veterinaria</div>
+                            <div style="font-size: 12px; color: #666;">Prenota controllo</div>
+                        </div>
+                    </button>
+                    
+                    <button class="action-btn">
+                        <div class="action-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);">❤️</div>
+                        <div>
+                            <div style="font-weight: 600;">Processo Adozione</div>
+                            <div style="font-size: 12px; color: #666;">Avvia nuova adozione</div>
+                        </div>
+                    </button>
+                    
+                    <button class="action-btn">
+                        <div class="action-icon" style="background: linear-gradient(135deg, #a8edea, #fed6e3);">📊</div>
+                        <div>
+                            <div style="font-weight: 600;">Report Mensile</div>
+                            <div style="font-size: 12px; color: #666;">Genera statistiche</div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <h3 class="section-title">Attività Recenti</h3>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">❤️</div>
+                        <div class="activity-content">
+                            <div class="activity-text">Luna è stata adottata dalla famiglia Bianchi</div>
+                            <div class="activity-time">2 ore fa</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">🏥</div>
+                        <div class="activity-content">
+                            <div class="activity-text">Whiskers ha completato la vaccinazione</div>
+                            <div class="activity-time">5 ore fa</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">➕</div>
+                        <div class="activity-content">
+                            <div class="activity-text">Nuovo arrivo: Gatto "Micio" dal canile di Roma</div>
+                            <div class="activity-time">1 giorno fa</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">📋</div>
+                        <div class="activity-content">
+                            <div class="activity-text">Controllo veterinario per Max completato</div>
+                            <div class="activity-time">2 giorni fa</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">💰</div>
+                        <div class="activity-content">
+                            <div class="activity-text">Donazione di €500 ricevuta da Fondazione Amici</div>
+                            <div class="activity-time">3 giorni fa</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

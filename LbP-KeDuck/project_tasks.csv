@@ -1,0 +1,13 @@
+Title,Status,Assignee,Body
+Creazione entità Animale,To Do,,Creare la classe entity Animale con i campi richiesti
+CRUD Animale,To Do,,Implementare controller e service per Animale
+Relazione Adozione-Animale,To Do,,Impostare relazione OneToOne e logica adozione
+CRUD Adozione,To Do,,Creare service e controller per le adozioni
+Entità Visita + relazione con Animale,To Do,,Creare classe Visita e collegarla ad Animale
+API Visite: filtro per animale o data,To Do,,Endpoint con query param
+Entità Donazione,To Do,,Creare entità Donazione con validazioni
+Endpoint totale donazioni,To Do,,Calcolare somma donazioni
+Test Service Animale,To Do,,Scrivere test unitari per la logica di servizio
+Documentazione API,To Do,,Descrivere endpoint REST in formato Markdown
+Preparazione dati di test,To Do,,Popolare DB con dati di esempio
+Presentazione cliente,To Do,,Creare slide o documento per il cliente

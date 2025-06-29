@@ -1,0 +1,189 @@
+modulo-adozione.html
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetFlix - Modulo di Adozione</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>🐾 PetFlix</h1>
+                <p>Gestione Rifugio</p>
+            </div>
+            <div class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="animali.html" class="nav-item">
+                    <i class="fas fa-paw"></i> Animali
+                </a>
+                <a href="adottanti.html" class="nav-item">
+                    <i class="fas fa-users"></i> Adottanti
+                </a>
+                <a href="adozioni.html" class="nav-item active">
+                    <i class="fas fa-heart"></i> Adozioni
+                </a>
+                <a href="box.html" class="nav-item">
+                    <i class="fas fa-home"></i> Box
+                </a>
+                <a href="cartelle-cliniche.html" class="nav-item">
+                    <i class="fas fa-file-medical"></i> Cartelle Cliniche
+                </a>
+                <a href="donatori.html" class="nav-item">
+                    <i class="fas fa-handshake"></i> Donatori
+                </a>
+                <a href="donazioni.html" class="nav-item">
+                    <i class="fas fa-euro-sign"></i> Donazioni
+                </a>
+                <a href="veterinari.html" class="nav-item">
+                    <i class="fas fa-user-md"></i> Veterinari
+                </a>
+                <a href="visite-mediche.html" class="nav-item">
+                    <i class="fas fa-stethoscope"></i> Visite Mediche
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-area">
+                <div class="page-header">
+                    <h1 class="page-title">Modulo di Adozione</h1>
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" onclick="window.location.href='adozioni.html'">
+                            <i class="fas fa-arrow-left"></i> Torna alle Adozioni
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form id="moduloAdozioneForm" class="adoption-form">
+                        <div class="form-section">
+                            <h3><i class="fas fa-paw"></i> Informazioni Animale</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nomeAnimale">Nome Animale *</label>
+                                    <input type="text" id="nomeAnimale" name="nomeAnimale" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tipoAnimale">Tipo Animale</label>
+                                    <select id="tipoAnimale" name="tipoAnimale" class="form-control">
+                                        <option value="Cane">Cane</option>
+                                        <option value="Gatto">Gatto</option>
+                                        <option value="Coniglio">Coniglio</option>
+                                        <option value="Altro">Altro</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="razzaAnimale">Razza</label>
+                                    <input type="text" id="razzaAnimale" name="razzaAnimale" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="etaAnimale">Età (anni)</label>
+                                    <input type="number" id="etaAnimale" name="etaAnimale" class="form-control" min="0" max="30">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> Informazioni Adottante</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="nomeAdottante">Nome Adottante *</label>
+                                    <input type="text" id="nomeAdottante" name="nomeAdottante" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cognomeAdottante">Cognome Adottante *</label>
+                                    <input type="text" id="cognomeAdottante" name="cognomeAdottante" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="emailAdottante">Email</label>
+                                    <input type="email" id="emailAdottante" name="emailAdottante" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="telefonoAdottante">Telefono</label>
+                                    <input type="tel" id="telefonoAdottante" name="telefonoAdottante" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="indirizzoAdottante">Indirizzo</label>
+                                    <textarea id="indirizzoAdottante" name="indirizzoAdottante" class="form-control" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-calendar"></i> Informazioni Adozione</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dataAdozione">Data Adozione *</label>
+                                    <input type="date" id="dataAdozione" name="dataAdozione" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="statoAdozione">Stato</label>
+                                    <select id="statoAdozione" name="statoAdozione" class="form-control">
+                                        <option value="In Attesa">In Attesa</option>
+                                        <option value="Approvata">Approvata</option>
+                                        <option value="Completata">Completata</option>
+                                        <option value="Annullata">Annullata</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group full-width">
+                                    <label for="noteAdozione">Note Aggiuntive</label>
+                                    <textarea id="noteAdozione" name="noteAdozione" class="form-control" rows="3" placeholder="Inserisci eventuali note o osservazioni..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                                <i class="fas fa-undo"></i> Reset
+                            </button>
+                            <button type="button" class="btn btn-info" onclick="previewForm()">
+                                <i class="fas fa-eye"></i> Anteprima
+                            </button>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Salva Modulo
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Anteprima -->
+    <div id="previewModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closePreview()">&times;</span>
+            <h2>Anteprima Modulo di Adozione</h2>
+            <div id="previewContent" class="preview-content">
+                <!-- Il contenuto dell'anteprima verrà inserito qui -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="printPreview()">
+                    <i class="fas fa-print"></i> Stampa
+                </button>
+                <button class="btn btn-secondary" onclick="closePreview()">
+                    Chiudi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/modulo-adozione.js"></script>
+</body>
+</html>

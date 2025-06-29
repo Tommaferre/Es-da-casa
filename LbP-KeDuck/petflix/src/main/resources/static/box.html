@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Box - Rifugio Animali</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-paw"></i> Petflix</h1>
+                <p>Sistema di Gestione Rifugio</p>
+            </div>
+            <div class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="animali.html" class="nav-item">
+                    <i class="fas fa-dog"></i> Animali
+                </a>
+                <a href="adottanti.html" class="nav-item">
+                    <i class="fas fa-users"></i> Adottanti
+                </a>
+                <a href="adozioni.html" class="nav-item">
+                    <i class="fas fa-heart"></i> Adozioni
+                </a>
+                <a href="box.html" class="nav-item active">
+                    <i class="fas fa-home"></i> Box
+                </a>
+                <a href="cartelle-cliniche.html" class="nav-item">
+                    <i class="fas fa-file-medical"></i> Cartelle Cliniche
+                </a>
+                <a href="donatori.html" class="nav-item">
+                    <i class="fas fa-hand-holding-heart"></i> Donatori
+                </a>
+                <a href="donazioni.html" class="nav-item">
+                    <i class="fas fa-donate"></i> Donazioni
+                </a>
+                <a href="veterinari.html" class="nav-item">
+                    <i class="fas fa-user-md"></i> Veterinari
+                </a>
+                <a href="visite-mediche.html" class="nav-item">
+                    <i class="fas fa-stethoscope"></i> Visite Mediche
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <div class="top-bar">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2>Gestione Box</h2>
+            </div>
+
+            <div class="content-area">
+                <div class="page-header">
+                    <h1 class="page-title">Box</h1>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="addBoxBtn">
+                            <i class="fas fa-plus"></i> Nuovo Box
+                        </button>
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="Cerca box...">
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="boxTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Capienza</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="boxTableBody">
+                            <!-- I dati verranno inseriti dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal per aggiungere/modificare box -->
+    <div id="boxModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Nuovo Box</h2>
+            <form id="boxForm">
+                <div class="form-row">
+                    <div class="form-group" style="flex:1; min-width:180px;">
+                        <label for="nomeBox">Nome:</label>
+                        <input type="text" class="form-control" id="nomeBox" required>
+                    </div>
+                    <div class="form-group" style="flex:1; min-width:180px;">
+                        <label for="capienzaBox">Capienza:</label>
+                        <input type="number" class="form-control" id="capienzaBox" required>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary">Salva</button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Annulla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/box.js"></script>
+</body>
+</html>

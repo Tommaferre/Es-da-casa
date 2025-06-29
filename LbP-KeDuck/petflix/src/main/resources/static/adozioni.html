@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gestione Adozioni - Rifugio Animali</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-paw"></i> Petflix</h1>
+                <p>Sistema di Gestione Rifugio</p>
+            </div>
+            <div class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="animali.html" class="nav-item">
+                    <i class="fas fa-dog"></i> Animali
+                </a>
+                <a href="adottanti.html" class="nav-item">
+                    <i class="fas fa-users"></i> Adottanti
+                </a>
+                <a href="adozioni.html" class="nav-item active">
+                    <i class="fas fa-heart"></i> Adozioni
+                </a>
+                <a href="box.html" class="nav-item">
+                    <i class="fas fa-home"></i> Box
+                </a>
+                <a href="cartelle-cliniche.html" class="nav-item">
+                    <i class="fas fa-file-medical"></i> Cartelle Cliniche
+                </a>
+                <a href="donatori.html" class="nav-item">
+                    <i class="fas fa-hand-holding-heart"></i> Donatori
+                </a>
+                <a href="donazioni.html" class="nav-item">
+                    <i class="fas fa-donate"></i> Donazioni
+                </a>
+                <a href="veterinari.html" class="nav-item">
+                    <i class="fas fa-user-md"></i> Veterinari
+                </a>
+                <a href="visite-mediche.html" class="nav-item">
+                    <i class="fas fa-stethoscope"></i> Visite Mediche
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <div class="top-bar">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2>Gestione Adozioni</h2>
+            </div>
+
+            <div class="content-area">
+                <div class="page-header">
+                    <h1 class="page-title">Adozioni</h1>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="addAdozioneBtn" aria-haspopup="dialog" aria-controls="adozioneModal">
+                            <i class="fas fa-plus"></i> Nuova Adozione
+                        </button>
+                        <button class="btn btn-info" onclick="window.location.href='modulo-adozione.html'">
+                            <i class="fas fa-file-alt"></i> Modulo Adozione
+                        </button>
+                        <!--<button class="btn btn-success" onclick="window.print()">
+                            <i class="fas fa-print"></i> Stampa
+                        </button>-->
+                    </div>
+                </div>
+
+                <div class="search-container">
+                    <input
+                        type="text"
+                        class="search-input"
+                        id="searchInput"
+                        placeholder="Cerca adozioni..."
+                        aria-label="Cerca adozioni"
+                    />
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="adozioniTable" role="grid" aria-describedby="tableDescription">
+                        <caption id="tableDescription" class="sr-only">
+                            Tabella delle adozioni con informazioni su animale, adottante, data, stato e azioni
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Animale</th>
+                                <th scope="col">Adottante</th>
+                                <th scope="col">Data Adozione</th>
+                                <th scope="col">Stato</th>
+                                <th scope="col">Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adozioniTableBody">
+                            <!-- I dati verranno inseriti dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal per aggiungere/modificare adozione -->
+    <div id="adozioneModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+        <div class="modal-content">
+            <button class="close" aria-label="Chiudi modal">&times;</button>
+            <h2 id="modalTitle">Nuova Adozione</h2>
+            <form id="adozioneForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="animaleSelect">Animale:</label>
+                        <select class="form-control" id="animaleSelect" required>
+                            <option value="">Seleziona animale</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="adottanteSelect">Adottante:</label>
+                        <select class="form-control" id="adottanteSelect" required>
+                            <option value="">Seleziona adottante</option>
+                        </select>
+                        <button type="button" class="btn btn-link" id="newAdottanteBtn">
+                            <i class="fas fa-user-plus"></i> Nuovo Adottante
+                        </button>
+
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dataAdozione">Data Adozione:</label>
+                        <input type="date" class="form-control" id="dataAdozione" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="statoAdozione">Stato:</label>
+                        <select class="form-control" id="statoAdozione" required>
+                            <option value="in_corso">In Corso</option>
+                            <option value="completata">Completata</option>
+                            <option value="annullata">Annullata</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="note">Note:</label>
+                    <textarea class="form-control" id="note" rows="3"></textarea>
+                </div>
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary">Salva</button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Annulla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal per nuovo adottante -->
+<div id="adottanteModal" class="modal" style="display: none">
+    <div class="modal-content">
+        <span class="close" id="closeAdottanteModal">&times;</span>
+        <h2>Nuovo Adottante</h2>
+        <form id="adottanteForm">
+            <div class="form-group">
+                <label for="newNome">Nome:</label>
+                <input type="text" class="form-control" id="newNome" required />
+            </div>
+            <div class="form-group">
+                <label for="newCognome">Cognome:</label>
+                <input type="text" class="form-control" id="newCognome" required />
+            </div>
+            <div class="action-buttons">
+                <button type="submit" class="btn btn-primary">Salva</button>
+                <button type="button" class="btn btn-secondary" id="cancelAdottanteBtn">Annulla</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+    <script src="js/common.js"></script>
+    <script src="js/adozioni.js"></script>
+</body>
+</html>

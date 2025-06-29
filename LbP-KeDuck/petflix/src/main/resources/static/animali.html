@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Animali - Rifugio Animali</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-paw"></i> Petflix</h1>
+                <p>Sistema di Gestione Rifugio</p>
+            </div>
+            <div class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="animali.html" class="nav-item">
+                    <i class="fas fa-dog"></i> Animali
+                </a>
+                <a href="adottanti.html" class="nav-item">
+                    <i class="fas fa-users"></i> Adottanti
+                </a>
+                <a href="adozioni.html" class="nav-item active">
+                    <i class="fas fa-heart"></i> Adozioni
+                </a>
+                <a href="box.html" class="nav-item">
+                    <i class="fas fa-home"></i> Box
+                </a>
+                <a href="cartelle-cliniche.html" class="nav-item">
+                    <i class="fas fa-file-medical"></i> Cartelle Cliniche
+                </a>
+                <a href="donatori.html" class="nav-item">
+                    <i class="fas fa-hand-holding-heart"></i> Donatori
+                </a>
+                <a href="donazioni.html" class="nav-item">
+                    <i class="fas fa-donate"></i> Donazioni
+                </a>
+                <a href="veterinari.html" class="nav-item">
+                    <i class="fas fa-user-md"></i> Veterinari
+                </a>
+                <a href="visite-mediche.html" class="nav-item">
+                    <i class="fas fa-stethoscope"></i> Visite Mediche
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <div class="top-bar">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h2>Gestione Animali</h2>
+            </div>
+
+            <div class="content-area">
+                <div class="page-header">
+                    <h1 class="page-title">Animali</h1>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="addAnimaleBtn">
+                            <i class="fas fa-plus"></i> Nuovo Animale
+                        </button>
+                        <button class="btn btn-success" onclick="window.print()">
+                            <i class="fas fa-print"></i> Stampa
+                        </button>
+                    </div>
+                </div>
+
+                <div class="filters-container">
+                    <div class="filters-row">
+                        <div class="filter-group">
+                            <label for="searchInput">Cerca per nome:</label>
+                            <input type="text" class="search-input" id="searchInput" placeholder="Nome animale...">
+                        </div>
+                        <div class="filter-group">
+                            <label for="specieFilter">Specie:</label>
+                            <select id="specieFilter" class="filter-select">
+                                <option value="">Tutte</option>
+                                <option value="Cane">Cane</option>
+                                <option value="Gatto">Gatto</option>
+                                <option value="Coniglio">Coniglio</option>
+                                <option value="Altro">Altro</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="razzaFilter">Razza:</label>
+                            <select id="razzaFilter" class="filter-select">
+                                <option value="">Tutte</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="boxFilter">Box:</label>
+                            <select id="boxFilter" class="filter-select">
+                                <option value="">Tutti</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="table" id="animaliTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Specie</th>
+                                <th>Razza</th>
+                                <th>Microchip</th>
+                                <th>Data Arrivo</th>
+                                <th>Stato</th>
+                                <th>Box</th>
+                                <th>Cartella Clinica</th>
+                                <th>Storia</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="animaliTableBody">
+                            <!-- I dati verranno caricati dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal per aggiungere/modificare animale -->
+    <div id="animaleModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Nuovo Animale</h2>
+            <form id="animaleForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" class="form-control" id="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="specie">Specie:</label>
+                        <select class="form-control" id="specie" required>
+                            <option value="">Seleziona specie</option>
+                            <option value="Cane">Cane</option>
+                            <option value="Gatto">Gatto</option>
+                            <option value="Coniglio">Coniglio</option>
+                            <option value="Altro">Altro</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="razza">Razza:</label>
+                        <input type="text" class="form-control" id="razza" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="microchip">Microchip:</label>
+                        <input type="text" class="form-control" id="microchip" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="data_arrivo">Data Arrivo:</label>
+                        <input type="date" class="form-control" id="data_arrivo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stato">Stato:</label>
+                        <select class="form-control" id="stato" required>
+                            <option value="Adottabile">Adottabile</option>
+                            <option value="In cura">In cura</option>
+                            <option value="In osservazione">In osservazione</option>
+                            <option value="Adottato">Adottato</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="idBox">Box:</label>
+                        <input type="number" class="form-control" id="idBox" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="idCartellaClinica">Cartella Clinica:</label>
+                        <input type="number" class="form-control" id="idCartellaClinica" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="backstories">Storia:</label>
+                    <textarea class="form-control" id="backstories" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="note">Note:</label>
+                    <textarea class="form-control" id="note" rows="2"></textarea>
+                </div>
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary">Salva</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Annulla</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/animali.js"></script>
+</body>
+</html>
