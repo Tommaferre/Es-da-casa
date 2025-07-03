@@ -103,15 +103,16 @@ class AdottantiManager {
     }
 
     async deleteAdottante(id) {
-        if (confirm('Sei sicuro di voler eliminare questo adottante?')) {
+        showConfirmModal('Sei sicuro di voler eliminare questo adottante?', async () => {
             try {
                 const response = await fetch(`/adottanti/${id}`, { method: 'DELETE' });
                 if (!response.ok) throw new Error('Errore durante l\'eliminazione');
                 this.loadAdottanti();
+                showConfirmModal('Adottante eliminato con successo!');
             } catch (error) {
-                alert('Errore durante l\'eliminazione: ' + error.message);
+                showConfirmModal('Errore durante l\'eliminazione: ' + error.message);
             }
-        }
+        });
     }
 
     async saveAdottante() {
@@ -142,8 +143,9 @@ class AdottantiManager {
             }
             this.closeModal();
             this.loadAdottanti();
+            showConfirmModal('Adottante salvato con successo!');
         } catch (error) {
-            alert('Errore durante il salvataggio: ' + error.message);
+            showConfirmModal('Errore durante il salvataggio: ' + error.message);
         }
     }
 

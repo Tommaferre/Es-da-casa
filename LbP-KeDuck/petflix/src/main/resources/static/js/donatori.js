@@ -172,42 +172,36 @@ class DonatoriManager {
     }
 
     async deleteDonatore(id) {
-        if (confirm('Sei sicuro di voler eliminare questo donatore?')) {
+        showConfirmModal('Sei sicuro di voler eliminare questo donatore?', async () => {
             try {
                 const response = await fetch(`/donatori/${id}`, { method: 'DELETE' });
                 if (!response.ok) throw new Error('Errore durante l\'eliminazione');
                 this.loadData();
+                showConfirmModal('Donatore eliminato con successo!');
             } catch (error) {
-                alert('Errore durante l\'eliminazione: ' + error.message);
+                showConfirmModal('Errore durante l\'eliminazione: ' + error.message);
             }
-        }
+        });
     }
 
     async saveDonatore() {
-        const form = document.getElementById('donatoreForm');
-        const formData = new FormData(form);
+        const formData = new FormData(document.getElementById('donatoreForm'));
         const donatoreData = {
             nome: formData.get('nome'),
             cognome: formData.get('cognome'),
-            telefono: formData.get('telefono'),
             email: formData.get('email'),
-            indirizzo: formData.get('indirizzo'),
-            tipo: formData.get('tipoPersona')
+            telefono: formData.get('telefono'),
+            indirizzo: formData.get('indirizzo')
         };
-        if (!donatoreData.nome || !donatoreData.cognome || !donatoreData.email) {
-            alert('Per favore compila tutti i campi obbligatori.');
-            return;
-        }
         try {
             let response;
-            if (this.currentDonatore) {
-                response = await fetch(`/donatori/${this.currentDonatore.id_donatore}`, {
+            if (this.currentEditId) {
+                response = await fetch(`/donatori/${this.currentEditId}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(donatoreData)
                 });
                 if (!response.ok) throw new Error('Errore durante la modifica');
-                alert('Donatore modificato con successo!');
             } else {
                 response = await fetch('/donatori', {
                     method: 'POST',
@@ -215,12 +209,12 @@ class DonatoriManager {
                     body: JSON.stringify(donatoreData)
                 });
                 if (!response.ok) throw new Error('Errore durante la creazione');
-                alert('Donatore aggiunto con successo!');
             }
             this.closeModal();
             this.loadData();
+            showConfirmModal('Donatore salvato con successo!');
         } catch (error) {
-            alert('Errore durante il salvataggio: ' + error.message);
+            showConfirmModal('Errore durante il salvataggio: ' + error.message);
         }
     }
 

@@ -132,11 +132,11 @@ class DonazioniManager {
     }
 
     deleteDonazione(id) {
-        if (confirm('Sei sicuro di voler eliminare questa donazione?')) {
+        showConfirmModal('Sei sicuro di voler eliminare questa donazione?', () => {
             this.donazioni = this.donazioni.filter(d => d.id !== id);
             this.renderTable();
-            // Here you would make an API call to delete from backend
-        }
+            showConfirmModal('Donazione eliminata con successo!');
+        });
     }
 
     saveDonazione() {
@@ -150,20 +150,17 @@ class DonazioniManager {
         };
 
         if (this.currentEditId) {
-            // Update existing
             const index = this.donazioni.findIndex(d => d.id === this.currentEditId);
             if (index !== -1) {
                 this.donazioni[index] = { ...this.donazioni[index], ...donazioneData };
             }
         } else {
-            // Add new
             const newId = Math.max(...this.donazioni.map(d => d.id), 0) + 1;
             this.donazioni.push({ id: newId, ...donazioneData });
         }
-
-        this.renderTable();
         this.closeModal();
-        // Here you would make an API call to save to backend
+        this.renderTable();
+        showConfirmModal('Donazione salvata con successo!');
     }
 
     closeModal() {

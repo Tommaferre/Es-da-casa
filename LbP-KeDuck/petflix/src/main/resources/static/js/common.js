@@ -64,6 +64,35 @@ function filterTable(tableId = 'dataTable', searchInputId = 'searchInput') {
     });
 }
 
+function showConfirmModal(message, onConfirm) {
+    const modal = document.getElementById('confirmModal');
+    const msg = document.getElementById('confirmModalMessage');
+    const okBtn = document.getElementById('okConfirmBtn');
+    const cancelBtn = document.getElementById('cancelConfirmBtn');
+    const closeBtn = document.getElementById('closeConfirmModal');
+
+    msg.textContent = message;
+    modal.style.display = 'block';
+
+    function cleanup() {
+        modal.style.display = 'none';
+        okBtn.removeEventListener('click', okHandler);
+        cancelBtn.removeEventListener('click', cancelHandler);
+        closeBtn.removeEventListener('click', cancelHandler);
+    }
+    function okHandler() {
+        cleanup();
+        if (typeof onConfirm === 'function') onConfirm();
+    }
+    function cancelHandler() {
+        cleanup();
+    }
+
+    okBtn.addEventListener('click', okHandler);
+    cancelBtn.addEventListener('click', cancelHandler);
+    closeBtn.addEventListener('click', cancelHandler);
+}
+
 // Initialize common UI
 document.addEventListener('DOMContentLoaded', () => {
     new CommonUI();

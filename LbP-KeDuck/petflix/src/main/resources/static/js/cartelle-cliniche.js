@@ -141,28 +141,36 @@ class CartelleClinicheManager {
         }
     }
 
+    async deleteCartella(id) {
+        showConfirmModal('Sei sicuro di voler eliminare questa cartella clinica?', async () => {
+            try {
+                const response = await fetch(`/cartelle/${id}`, { method: 'DELETE' });
+                if (!response.ok) throw new Error('Errore durante l\'eliminazione');
+                await this.loadData();
+                showConfirmModal('Cartella clinica eliminata con successo!');
+            } catch (error) {
+                showConfirmModal('Errore durante l\'eliminazione: ' + error.message);
+            }
+        });
+    }
+
     async addCartella(data) {
         try {
             const response = await fetch(this.baseUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
-
             if (response.ok) {
                 await this.loadData();
                 this.closeModal();
-                alert('Cartella clinica aggiunta con successo!');
+                showConfirmModal('Cartella clinica aggiunta con successo!');
             } else {
                 const errorText = await response.text();
-                console.error('Errore nella creazione:', errorText);
-                alert('Errore nella creazione della cartella clinica');
+                showConfirmModal('Errore nella creazione della cartella clinica: ' + errorText);
             }
         } catch (error) {
-            console.error('Errore di rete:', error);
-            alert('Errore di connessione al server');
+            showConfirmModal('Errore di connessione al server');
         }
     }
 
@@ -170,24 +178,19 @@ class CartelleClinicheManager {
         try {
             const response = await fetch(`${this.baseUrl}/${id}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });
-
             if (response.ok) {
                 await this.loadData();
                 this.closeModal();
-                alert('Cartella clinica aggiornata con successo!');
+                showConfirmModal('Cartella clinica aggiornata con successo!');
             } else {
                 const errorText = await response.text();
-                console.error('Errore nell\'aggiornamento:', errorText);
-                alert('Errore nell\'aggiornamento della cartella clinica');
+                showConfirmModal('Errore nell\'aggiornamento della cartella clinica: ' + errorText);
             }
         } catch (error) {
-            console.error('Errore di rete:', error);
-            alert('Errore di connessione al server');
+            showConfirmModal('Errore di connessione al server');
         }
     }
 

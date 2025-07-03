@@ -10,20 +10,31 @@ class Dashboard {
 
     async loadStats() {
         try {
-            // Simulated data - replace with actual API calls
-            const stats = {
-                totalAnimals: 45,
-                completedAdoptions: 23,
-                occupiedBoxes: 12,
-                totalDonations: 15420
-            };
+            // Animali
+            const animaliRes = await fetch('/animali');
+            const animali = await animaliRes.json();
+            document.getElementById('total-animals').textContent = animali.length;
 
-            document.getElementById('total-animals').textContent = stats.totalAnimals;
-            document.getElementById('completed-adoptions').textContent = stats.completedAdoptions;
-            document.getElementById('occupied-boxes').textContent = `${stats.occupiedBoxes}/15`;
-            document.getElementById('total-donations').textContent = `€${stats.totalDonations.toLocaleString()}`;
+            // Adozioni
+            const adozioniRes = await fetch('/adozioni');
+            const adozioni = await adozioniRes.json();
+            document.getElementById('completed-adoptions').textContent = adozioni.length;
+
+            // Box
+            const boxRes = await fetch('/box');
+            const boxes = await boxRes.json();
+            document.getElementById('occupied-boxes').textContent = boxes.length; // oppure filtra se vuoi solo quelli occupati
+
+            // Donazioni
+            const donazioniRes = await fetch('/donazioni');
+            const donazioni = await donazioniRes.json();
+            // Somma importi se sono donazioni monetarie
+            const totale = donazioni
+                .filter(d => d.importo) // solo quelle con campo importo
+                .reduce((sum, d) => sum + Number(d.importo), 0);
+            document.getElementById('total-donations').textContent = `€${totale.toLocaleString()}`;
         } catch (error) {
-            console.error('Errore nel caricamento delle statistiche:', error);
+            showConfirmModal('Errore nel caricamento delle statistiche: ' + error.message);
         }
     }
 }

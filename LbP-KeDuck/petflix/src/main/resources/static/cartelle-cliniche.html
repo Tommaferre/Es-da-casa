@@ -63,7 +63,7 @@
                     <h1 class="page-title">Cartelle Cliniche</h1>
                     <div class="action-buttons">
                         <button class="btn btn-primary" id="addCartellaBtn">
-                            <i class="fas fa-plus"></i> Nuova Cartella
+                            <i class="fas fa-plus"></i> Nuova Cartella Clinica
                         </button>
                         <!-- <button class="btn btn-success" onclick="window.print()">
                             <i class="fas fa-print"></i> Stampa
@@ -217,6 +217,19 @@
                 <button type="button" class="btn btn-secondary" id="closeDetailsBtn">Chiudi</button>
             </div>
         </div>
+    </div>
+
+    <!-- Modal di conferma custom -->
+    <div id="confirmModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeConfirmModal">&times;</span>
+        <h3 id="confirmModalTitle">Conferma</h3>
+        <p id="confirmModalMessage"></p>
+        <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+          <button class="btn btn-secondary" id="cancelConfirmBtn">Annulla</button>
+          <button class="btn btn-primary" id="okConfirmBtn">Conferma</button>
+        </div>
+      </div>
     </div>
 
     <script src="js/common.js"></script>

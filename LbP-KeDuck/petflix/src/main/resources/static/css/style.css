@@ -704,3 +704,11 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #adb5bd;
 }
+
+#confirmModal .modal-content {
+    max-width: 400px;
+    text-align: center;
+}
+#confirmModal .btn {
+    min-width: 100px;
+}

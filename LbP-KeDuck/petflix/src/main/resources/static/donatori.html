@@ -63,9 +63,9 @@
             <div class="content-area">
                 <div class="page-header">
                     <h1 class="page-title">Donatori</h1>
-                    <div class="action-buttons">
-                        <button class="btn btn-success" id="addBtn">Aggiungi Donatore</button>
-                    </div>
+                    <button class="btn btn-primary" id="addDonatoreBtn">
+                        <i class="fas fa-plus"></i> Nuovo Donatore
+                    </button>
                 </div>
 
                 <div class="filters-container">
@@ -141,6 +141,19 @@
                     <button type="button" class="btn btn-danger" id="cancelBtn">Annulla</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal di conferma custom -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeConfirmModal">&times;</span>
+            <h3 id="confirmModalTitle">Conferma</h3>
+            <p id="confirmModalMessage"></p>
+            <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1.5rem;">
+                <button class="btn btn-secondary" id="cancelConfirmBtn">Annulla</button>
+                <button class="btn btn-primary" id="okConfirmBtn">Conferma</button>
+            </div>
         </div>
     </div>
 

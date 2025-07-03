@@ -20,7 +20,7 @@ class VisiteMedicheManager {
             if (!resVisite.ok) throw new Error('Errore nel caricamento delle visite');
             this.visite = await resVisite.json();
         } catch (error) {
-            alert('Errore nel caricamento delle visite: ' + error.message);
+            showConfirmModal('Errore nel caricamento delle visite: ' + error.message);
             this.visite = [];
         }
         // Carica animali
@@ -29,7 +29,7 @@ class VisiteMedicheManager {
             if (!resAnimali.ok) throw new Error('Errore nel caricamento degli animali');
             this.animali = await resAnimali.json();
         } catch (error) {
-            alert('Errore nel caricamento degli animali: ' + error.message);
+            showConfirmModal('Errore nel caricamento degli animali: ' + error.message);
             this.animali = [];
         }
         // Carica veterinari
@@ -38,7 +38,7 @@ class VisiteMedicheManager {
             if (!resVeterinari.ok) throw new Error('Errore nel caricamento dei veterinari');
             this.veterinari = await resVeterinari.json();
         } catch (error) {
-            alert('Errore nel caricamento dei veterinari: ' + error.message);
+            showConfirmModal('Errore nel caricamento dei veterinari: ' + error.message);
             this.veterinari = [];
         }
     }

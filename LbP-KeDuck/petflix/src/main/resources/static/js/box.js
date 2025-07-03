@@ -101,9 +101,9 @@ class BoxManager {
         if (response.ok) {
             await this.loadBoxes();
             this.closeModal();
-            alert('Box aggiunto con successo!');
+            showConfirmModal('Box aggiunto con successo!');
         } else {
-            alert('Errore durante l\'aggiunta del box');
+            showConfirmModal('Errore durante l\'aggiunta del box');
         }
     }
 
@@ -116,29 +116,22 @@ class BoxManager {
         if (response.ok) {
             await this.loadBoxes();
             this.closeModal();
-            alert('Box aggiornato con successo!');
+            showConfirmModal('Box aggiornato con successo!');
         } else {
-            alert('Errore durante l\'aggiornamento del box');
-        }
-    }
-
-    editBox(id) {
-        const box = this.boxes.find(b => b.id_box === id);
-        if (box) {
-            this.openModal(box);
+            showConfirmModal('Errore durante l\'aggiornamento del box');
         }
     }
 
     async deleteBox(id) {
-        if (confirm('Sei sicuro di voler eliminare questo box?')) {
+        showConfirmModal('Sei sicuro di voler eliminare questo box?', async () => {
             const response = await fetch(`/box/${id}`, { method: 'DELETE' });
             if (response.ok) {
                 await this.loadBoxes();
-                alert('Box eliminato con successo!');
+                showConfirmModal('Box eliminato con successo!');
             } else {
-                alert('Errore durante l\'eliminazione del box');
+                showConfirmModal('Errore durante l\'eliminazione del box');
             }
-        }
+        });
     }
 
     filterTable(searchTerm) {

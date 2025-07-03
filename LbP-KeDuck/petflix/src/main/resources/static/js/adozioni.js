@@ -223,7 +223,7 @@ class AdozioniManager {
         this.adozioni.push(newAdozione);
         this.renderTable();
         this.closeModal();
-        alert('Adozione aggiunta con successo!');
+        showConfirmModal('Adozione aggiunta con successo!');
     }
 
     updateAdozione(id, data) {
@@ -232,7 +232,7 @@ class AdozioniManager {
             this.adozioni[index] = { ...this.adozioni[index], ...data };
             this.renderTable();
             this.closeModal();
-            alert('Adozione aggiornata con successo!');
+            showConfirmModal('Adozione aggiornata con successo!');
         }
     }
 
@@ -244,11 +244,11 @@ class AdozioniManager {
     }
 
     deleteAdozione(id) {
-        if (confirm('Sei sicuro di voler eliminare questa adozione?')) {
+        showConfirmModal('Sei sicuro di voler eliminare questa adozione?', () => {
             this.adozioni = this.adozioni.filter(a => a.id !== id);
             this.renderTable();
-            alert('Adozione eliminata con successo!');
-        }
+            showConfirmModal('Adozione eliminata con successo!');
+        });
     }
 
     debounceFilter(value) {

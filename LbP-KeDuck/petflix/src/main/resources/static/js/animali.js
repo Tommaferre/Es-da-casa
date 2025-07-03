@@ -18,12 +18,10 @@ class AnimaliManager {
             const response = await fetch('/animali');
             if (!response.ok) throw new Error('Errore nel caricamento degli animali');
             this.animali = await response.json();
-            console.log('Animali caricati:', this.animali);
             this.renderTable();
             this.populateFilterOptions();
         } catch (error) {
-            console.error('Errore nel caricamento:', error);
-            alert('Errore nel caricamento degli animali: ' + error.message);
+            showConfirmModal('Errore nel caricamento degli animali: ' + error.message);
         }
     }
 
@@ -173,7 +171,7 @@ class AnimaliManager {
             document.getElementById('idBox').value = animale.idBox || animale.id_box || '';
             document.getElementById('idCartellaClinica').value = animale.idCartellaClinica || animale.id_cartella_clinica || '';
         } else {
-            alert('Animale non trovato!');
+            showConfirmModal('Animale non trovato!');
         }
     }
 
@@ -216,9 +214,9 @@ class AnimaliManager {
             }
             this.closeModal();
             this.loadData();
-            alert('Animale aggiunto con successo!');
+            showConfirmModal('Animale aggiunto con successo!');
         } catch (error) {
-            alert(error.message);
+            showConfirmModal(error.message);
         }
     }
 
@@ -232,9 +230,9 @@ class AnimaliManager {
             if (!response.ok) throw new Error('Errore durante la modifica');
             this.closeModal();
             this.loadData();
-            alert('Animale aggiornato con successo!');
+            showConfirmModal('Animale aggiornato con successo!');
         } catch (error) {
-            alert('Errore durante la modifica: ' + error.message);
+            showConfirmModal('Errore durante la modifica: ' + error.message);
         }
     }
 
@@ -243,17 +241,42 @@ class AnimaliManager {
         this.openModal(id);
     }
 
-    async deleteAnimale(id) {
-        console.log('Delete animale chiamato con ID:', id);
-        if (confirm('Sei sicuro di voler eliminare questo animale?')) {
+    deleteAnimale(id) {
+        showConfirmModal('Sei sicuro di voler eliminare questo animale?', async () => {
             try {
                 const response = await fetch(`/animali/${id}`, { method: 'DELETE' });
                 if (!response.ok) throw new Error('Errore durante l\'eliminazione');
                 this.loadData();
-                alert('Animale eliminato con successo!');
+                showConfirmModal('Animale eliminato con successo!');
             } catch (error) {
-                alert('Errore durante l\'eliminazione: ' + error.message);
+                showConfirmModal('Errore durante l\'eliminazione: ' + error.message);
             }
+        });
+    }
+
+    async saveAnimale() {
+        // ...raccogli i dati dal form come già fai...
+        try {
+            let response;
+            if (this.currentEditId) {
+                response = await fetch(`/animali/${this.currentEditId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(animaleData)
+                });
+                if (!response.ok) throw new Error('Errore durante la modifica');
+            } else {
+                response = await fetch('/animali', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(animaleData)
+                });
+                if (!response.ok) throw new Error('Errore durante la creazione');
+            }
+            this.closeModal();
+            this.loadAnimali();
+        } catch (error) {
+            showConfirmModal('Errore durante il salvataggio: ' + error.message);
         }
     }
 
