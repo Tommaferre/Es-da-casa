@@ -1,0 +1,17 @@
+{
+    "name": "tommaso.ferrero/esercitazione1_ferrero",
+    "description": "esercitazione 1 ferrero tommaso swd",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "tommaferre",
+            "email": "tommaso.ferrero@edu-its.it"
+        }
+    ],
+    "require": {}
+}
